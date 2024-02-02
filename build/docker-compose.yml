@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  abstractive-summary:
+      image: abstractive-summary:${TAG}
+      build:
+          context: ../
+          dockerfile: build/Dockerfile
+      stdin_open: true
+      tty: true
+      
+      volumes:
+        - ../models:/abstractive-summary/models
+        - ../src:/abstractive-summary/src
+        - ../test:/abstractive-summary/test
+      ulimits:
+        memlock: -1
+      shm_size: 32gb
+      env_file:
+        .env
+      # deploy:
+      #   resources:
+      #     reservations:
+      #       devices:
+      #       - driver: nvidia
+      #         count: 1
+      #         capabilities: [gpu]
+

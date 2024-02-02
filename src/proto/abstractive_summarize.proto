@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package abstractive_summarize;
+
+service AbstractiveSummarizer {
+
+  rpc AbstractiveSummarize(SummarizationRequest) returns (Summaries) {}
+}
+
+message Summaries {
+  repeated Summary summaries = 1;
+}
+
+message Summary {
+  uint64 target_uuid = 1;
+  string summary = 2;
+}
+
+message SummarizationRequest {
+    string document = 1;
+    repeated Target targets=2;
+  } 
+  
+message Target {
+    uint64 target_uuid = 1;
+    uint32 span_start = 2;
+    uint32 span_end = 3;
+}
+
